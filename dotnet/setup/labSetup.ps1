@@ -62,7 +62,7 @@ function New-Database ($resourceGroupName, $accountName, $databaseName) {
         -Name $databaseResourceName -PropertyObject $databaseProperties -Force
 }
 
-function New-Container ($resourceGroupName, $accountName, $databaseName, $containerName, $partition, $throughput = 400) {
+function New-Container ($resourceGroupName, $accountName, $databaseName, $containerName, $partition, $throughput = 5000) {
     $containerResourceName = $accountName + "/sql/" + $databaseName + "/" + $containerName
 
     $containerProperties = @{
@@ -412,7 +412,7 @@ New-AzResource -ResourceType "Microsoft.DocumentDb/databaseAccounts" `
 
 New-Database $resourceGroupName $accountName "FinancialDatabase"
 New-Container $resourceGroupName $accountName "FinancialDatabase" "PeopleCollection" "/accountHolder/LastName"
-New-Container $resourceGroupName $accountName "FinancialDatabase" "TransactionCollection" "/costCenter" 10000
+New-Container $resourceGroupName $accountName "FinancialDatabase" "TransactionCollection" "/costCenter" 5000
 
 New-Database $resourceGroupName $accountName "NutritionDatabase"
 New-Container $resourceGroupName $accountName "NutritionDatabase" "FoodCollection" "/foodGroup" 11000
